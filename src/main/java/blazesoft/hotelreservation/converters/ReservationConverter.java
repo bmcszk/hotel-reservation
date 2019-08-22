@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 
 import blazesoft.hotelreservation.model.Reservation;
 import blazesoft.hotelreservation.model.dtos.ReservationDto;
+import blazesoft.hotelreservation.model.dtos.ReservationRequest;
 import lombok.RequiredArgsConstructor;
 
 @Component
@@ -16,11 +17,11 @@ public class ReservationConverter {
         return modelMapper.map(entity, ReservationDto.class);
     }
 
-	public Reservation convertToEntity(ReservationDto dto) {
+	public Reservation convertToEntity(ReservationRequest dto) {
 		return modelMapper.map(dto, Reservation.class);
     }
     
-    public Reservation convertToEntity(ReservationDto dto, Reservation entity) {
+    public Reservation convertToEntity(ReservationRequest dto, Reservation entity) {
         modelMapper.map(dto, entity);
         return entity;
 	}
