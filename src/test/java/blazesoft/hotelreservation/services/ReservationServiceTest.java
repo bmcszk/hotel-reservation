@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.util.List;
 
 import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,11 +28,6 @@ public class ReservationServiceTest {
 
     @Autowired
     ReservationRepository reservationRepository;
-
-    @Before
-    public void setup() {
-        
-    }
 
     @Test
     public void shouldAddReservation() {
@@ -118,8 +112,6 @@ public class ReservationServiceTest {
                 .userName("unitUser")
                 .build();
         reservationService.addResevation(reservationRequest2);
-
-        //TODO this should work but does not
 
         List<ReservationDto> result = reservationService.getReservationsByRoom("31");
         assertThat(result).hasSize(2);
