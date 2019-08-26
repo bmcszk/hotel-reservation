@@ -6,6 +6,7 @@ import javax.validation.Valid;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -38,9 +40,14 @@ public class ReservationController {
     }
 
     @GetMapping
-    public List<ReservationDto> getAllReservations() {
-        log.debug("getAllReservations()");
-        return reservationService.getAllReservations();
+    public List<ReservationDto> getFilteredReservations(
+            @RequestParam(required = false) String roomNumber) {
+        log.debug("getFilteredReservations()");
+        if (!StringUtils.isEmpty(roomNumber)) {
+            return reservationService.getReservationsByRoom(roomNumber);
+        } else {
+            return reservationService.getAllReservations();
+        }
     }
 
     @GetMapping("{id}")
@@ -51,6 +58,7 @@ public class ReservationController {
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.CREATED)
     public ReservationDto addReservation(@RequestBody @Valid ReservationRequest reservationRequest) {
         log.debug("addReservation()");
         return reservationService.addResevation(reservationRequest);
