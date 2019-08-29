@@ -6,3 +6,5 @@ applications:
   buildpacks:
   - java_buildpack
   path: target/hotel-reservation-0.0.1-SNAPSHOT.jar
+  env:
+    CONFIG_SERVER_URL: http://config-server-active-pangolin.cf.env1.aws1.test.cloudboostr.com
