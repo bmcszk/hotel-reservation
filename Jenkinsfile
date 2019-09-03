@@ -29,10 +29,11 @@ pipeline {
             steps {
                 sh 'mvn -Dmaven.test.skip=true install' 
             }
-            post {
-                success {
-                    junit 'target/surefire-reports/*.xml' 
-                }
+        }
+
+        stage ('Deploy') {
+            steps {
+                sh 'cf push' 
             }
         }
     }
